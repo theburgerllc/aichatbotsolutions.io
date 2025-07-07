@@ -1,10 +1,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { FadeIn } from '@/components/animations/FadeIn'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 import { Star, Quote } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
+import Image from 'next/image'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -83,12 +85,7 @@ export default function TestimonialsSlider() {
         </motion.div>
 
         {/* Testimonials Slider */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
+        <FadeIn delay={200}>
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={30}
@@ -143,9 +140,11 @@ export default function TestimonialsSlider() {
 
                       {/* Author */}
                       <div className="flex items-center">
-                        <img
+                        <Image
                           src={testimonial.avatar}
                           alt={testimonial.name}
+                          width={48}
+                          height={48}
                           className="w-12 h-12 rounded-full object-cover mr-4"
                         />
                         <div>
@@ -163,7 +162,7 @@ export default function TestimonialsSlider() {
               </SwiperSlide>
             ))}
           </Swiper>
-        </motion.div>
+        </FadeIn>
 
         {/* Trust Indicators */}
         <motion.div

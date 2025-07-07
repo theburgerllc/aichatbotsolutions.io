@@ -26,6 +26,7 @@
     "next": "15.3.5",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
+    "react-chatbotify": "^2.2.0",
     "react-cookie-consent": "^9.0.0",
     "react-dom": "^19.0.0",
     "stripe": "^18.3.0",

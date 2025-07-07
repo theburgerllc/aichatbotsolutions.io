@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { FadeIn } from '@/components/animations/FadeIn'
 import { Card, CardContent } from '@/components/ui/card'
 import { 
   Clock, 
@@ -77,40 +78,60 @@ export default function BenefitsSection() {
         </motion.div>
 
         {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+        >
           {benefits.map((benefit, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.05 }}
-              className="group"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white">
-                <CardContent className="p-6">
-                  <div className="flex flex-col items-center text-center space-y-4">
-                    {/* Icon */}
-                    <div className="p-3 bg-brand-blue/10 rounded-xl group-hover:bg-brand-blue/20 transition-colors">
-                      <benefit.icon className="h-8 w-8 text-brand-blue" />
-                    </div>
-                    
-                    {/* Title */}
-                    <h3 className="text-xl font-semibold text-gray-900 font-heading">
-                      {benefit.title}
-                    </h3>
-                    
-                    {/* Description */}
-                    <p className="text-gray-600 leading-relaxed">
-                      {benefit.description}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+              <FadeIn delay={index * 100}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="group h-full"
+                >
+                  <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white">
+                    <CardContent className="p-6">
+                      <div className="flex flex-col items-center text-center space-y-4">
+                        {/* Icon */}
+                        <div className="p-3 bg-brand-blue/10 rounded-xl group-hover:bg-brand-blue/20 transition-colors">
+                          <benefit.icon className="h-8 w-8 text-brand-blue" />
+                        </div>
+                        
+                        {/* Title */}
+                        <h3 className="text-xl font-semibold text-gray-900 font-heading">
+                          {benefit.title}
+                        </h3>
+                        
+                        {/* Description */}
+                        <p className="text-gray-600 leading-relaxed">
+                          {benefit.description}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </FadeIn>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Bottom CTA */}
         <motion.div

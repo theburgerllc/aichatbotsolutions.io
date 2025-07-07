@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { SlideIn } from '@/components/animations/FadeIn'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Check, Crown, Zap, Star } from 'lucide-react'
@@ -148,14 +149,8 @@ export default function PricingTable() {
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {plans.map((plan, index) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className={`relative ${plan.popular ? 'md:scale-105 md:-mt-4' : ''}`}
-            >
+            <SlideIn key={plan.name} direction="up" delay={index * 200}>
+              <div className={`relative ${plan.popular ? 'md:scale-105 md:-mt-4' : ''}`}>
               <Card className={`h-full border-2 transition-all duration-300 hover:shadow-xl ${
                 plan.popular 
                   ? 'border-brand-green shadow-xl bg-white' 
@@ -235,7 +230,8 @@ export default function PricingTable() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+              </div>
+            </SlideIn>
           ))}
         </div>
 
