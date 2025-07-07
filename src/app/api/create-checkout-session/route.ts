@@ -26,18 +26,35 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { plan, priceId, customerEmail, utm_source, utm_medium, utm_campaign } = await request.json()
+    const { plan, industry, priceId, customerEmail, utm_source, utm_medium, utm_campaign } = await request.json()
 
     // Input validation
-    if (!plan || plan !== 'King Plan') {
+    const validPlans = ['Legal Chatbot Suite', 'Healthcare Chatbot Suite']
+    if (!plan || !validPlans.includes(plan)) {
       return NextResponse.json(
-        { error: 'Invalid plan selected. Only King Plan is available.' },
+        { error: 'Invalid plan selected. Please choose Legal or Healthcare Chatbot Suite.' },
         { status: 400 }
       )
     }
 
-    // Use environment variable if priceId not provided, with validation
-    const finalPriceId = priceId || process.env.NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID
+    // Determine price based on industry
+    let finalPriceId = priceId
+    let setupAmount = 0
+    
+    if (!finalPriceId) {
+      if (industry === 'legal') {
+        finalPriceId = process.env.NEXT_PUBLIC_STRIPE_LEGAL_SUITE_PRICE_ID || process.env.NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID
+        setupAmount = 1500 // $1,500 setup fee
+      } else if (industry === 'healthcare') {
+        finalPriceId = process.env.NEXT_PUBLIC_STRIPE_HEALTHCARE_SUITE_PRICE_ID || process.env.NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID
+        setupAmount = 1800 // $1,800 setup fee
+      } else {
+        return NextResponse.json(
+          { error: 'Invalid industry specified. Please select legal or healthcare.' },
+          { status: 400 }
+        )
+      }
+    }
 
     // Additional validation for price ID format
     if (!finalPriceId || !finalPriceId.startsWith('price_')) {
@@ -50,11 +67,14 @@ export async function POST(request: NextRequest) {
 
     // Create comprehensive metadata for BotPenguin integration
     const metadata = {
-      plan: 'King Plan',
+      plan: plan,
+      industry: industry,
+      setup_amount: setupAmount.toString(),
       partner: 'AI Chatbot Solutions',
       partner_id: process.env.NEXT_PUBLIC_BOTPENGUIN_PARTNER_ID || '',
       redirect_type: 'botpenguin_signup',
       source: 'website',
+      service_type: industry === 'legal' ? 'Legal Chatbot Solution' : 'Healthcare Chatbot Solution',
       created_at: new Date().toISOString(),
       ...(utm_source && { utm_source }),
       ...(utm_medium && { utm_medium }),
@@ -90,41 +110,54 @@ export async function POST(request: NextRequest) {
       },
       
       subscription_data: {
-        description: 'BotPenguin King Plan - AI Chatbot Solution (50% Discount)',
+        description: `${plan} - Custom AI Chatbot Solution`,
         metadata: {
           ...metadata,
-          original_price: '$399/month',
-          discounted_price: '$199/month',
-          discount_percentage: '50%',
+          setup_fee: `$${setupAmount}`,
+          monthly_fee: industry === 'legal' ? '$200/month' : '$250/month',
         },
       },
       
       // Custom fields for additional customer info
       custom_fields: [
         {
-          key: 'company_name',
+          key: industry === 'legal' ? 'firm_name' : 'practice_name',
           label: {
             type: 'text',
-            text: 'Company Name',
+            text: industry === 'legal' ? 'Law Firm Name' : 'Practice Name',
           },
           type: 'text',
-          optional: true,
+          optional: false,
         },
         {
-          key: 'business_size',
+          key: 'practice_size',
           label: {
             type: 'text',
-            text: 'Business Size',
+            text: industry === 'legal' ? 'Firm Size' : 'Practice Size',
           },
           type: 'dropdown',
           dropdown: {
-            options: [
-              { label: 'Solo/Freelancer', value: 'solo' },
-              { label: 'Small Business (2-10 employees)', value: 'small' },
-              { label: 'Medium Business (11-50 employees)', value: 'medium' },
-              { label: 'Large Business (50+ employees)', value: 'large' },
+            options: industry === 'legal' ? [
+              { label: 'Solo Practitioner', value: 'solo' },
+              { label: 'Small Firm (2-10 attorneys)', value: 'small' },
+              { label: 'Medium Firm (11-50 attorneys)', value: 'medium' },
+              { label: 'Large Firm (50+ attorneys)', value: 'large' },
+            ] : [
+              { label: 'Solo Practitioner', value: 'solo' },
+              { label: 'Small Practice (2-10 providers)', value: 'small' },
+              { label: 'Medium Practice (11-50 providers)', value: 'medium' },
+              { label: 'Large Practice/Hospital (50+ providers)', value: 'large' },
             ],
           },
+          optional: true,
+        },
+        {
+          key: 'specialty',
+          label: {
+            type: 'text',
+            text: industry === 'legal' ? 'Practice Area' : 'Medical Specialty',
+          },
+          type: 'text',
           optional: true,
         },
       ],

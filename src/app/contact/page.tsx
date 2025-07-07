@@ -13,6 +13,7 @@ interface FormData {
   email: string
   company: string
   phone: string
+  industry: string
   subject: string
   message: string
 }
@@ -23,6 +24,7 @@ export default function ContactPage() {
     email: '',
     company: '',
     phone: '',
+    industry: '',
     subject: '',
     message: ''
   })
@@ -68,6 +70,7 @@ export default function ContactPage() {
           email: '',
           company: '',
           phone: '',
+          industry: '',
           subject: '',
           message: ''
         })
@@ -97,7 +100,7 @@ export default function ContactPage() {
               Get in Touch
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-8">
-              Ready to transform your business with AI chatbots? Let's talk!
+              Ready to transform your practice with custom AI chatbot solutions? Let's discuss your needs!
             </p>
           </motion.div>
         </div>
@@ -183,7 +186,7 @@ export default function ContactPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                          Company
+                          Practice/Firm Name
                         </label>
                         <Input
                           type="text"
@@ -192,7 +195,7 @@ export default function ContactPage() {
                           value={formData.company}
                           onChange={handleInputChange}
                           className="w-full"
-                          placeholder="Your company name"
+                          placeholder="Your practice or firm name"
                         />
                       </div>
                       <div>
@@ -209,6 +212,25 @@ export default function ContactPage() {
                           placeholder="+1 (555) 123-4567"
                         />
                       </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="industry" className="block text-sm font-medium text-gray-700 mb-2">
+                        Industry *
+                      </label>
+                      <select
+                        id="industry"
+                        name="industry"
+                        value={formData.industry}
+                        onChange={(e) => setFormData(prev => ({ ...prev, industry: e.target.value }))}
+                        required
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-brand-blue"
+                      >
+                        <option value="">Select your industry</option>
+                        <option value="legal">Legal Services</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="other">Other (please specify in message)</option>
+                      </select>
                     </div>
 
                     <div>
@@ -238,7 +260,7 @@ export default function ContactPage() {
                         required
                         rows={6}
                         className="w-full"
-                        placeholder="Tell us about your business needs and how we can help..."
+                        placeholder="Tell us about your practice needs, current challenges, and how we can help streamline your operations..."
                       />
                     </div>
 
@@ -273,8 +295,7 @@ export default function ContactPage() {
                   Let's Start a Conversation
                 </h2>
                 <p className="text-lg text-gray-600 mb-8">
-                  Whether you're ready to get started or just want to learn more about how AI chatbots 
-                  can transform your business, we're here to help.
+                  Whether you're ready to implement a custom chatbot solution for your practice or want to learn more about how AI can improve efficiency and client satisfaction, we're here to help.
                 </p>
               </div>
 
@@ -337,11 +358,13 @@ export default function ContactPage() {
               <div className="bg-gradient-to-r from-brand-blue to-brand-green rounded-2xl p-8 text-white">
                 <h3 className="text-xl font-bold mb-4 font-heading">Ready to Get Started?</h3>
                 <p className="mb-6 text-blue-100">
-                  Skip the wait and start your free trial today. No credit card required, 
-                  and you can be up and running in minutes.
+                  Schedule a free consultation to discuss your specific needs and see how our AI solutions can transform your practice.
                 </p>
-                <Button className="bg-white text-brand-blue hover:bg-gray-100 font-semibold">
-                  Start Free Trial
+                <Button 
+                  className="bg-white text-brand-blue hover:bg-gray-100 font-semibold"
+                  onClick={() => setFormData(prev => ({ ...prev, subject: 'Free Consultation Request' }))}
+                >
+                  Schedule Consultation
                 </Button>
               </div>
             </motion.div>

@@ -10,52 +10,52 @@ import {
 
 const faqs = [
   {
-    question: 'What is the BotPenguin King Plan?',
-    answer: 'The King Plan is BotPenguin\'s most comprehensive AI chatbot solution, offering unlimited conversations, advanced AI capabilities, multi-platform deployment, and priority support. It includes everything you need to automate customer service and boost sales.'
+    question: 'What makes your chatbot solutions industry-specific?',
+    answer: 'Our Legal and Healthcare Chatbot Suites are specifically designed for their respective industries. Legal chatbots handle client intake, case management, and appointment scheduling with legal-specific workflows. Healthcare chatbots are HIPAA-compliant and include patient triage, appointment reminders, and medical questionnaires.'
   },
   {
-    question: 'How does the 14-day free trial work?',
-    answer: 'You can try the King Plan completely free for 14 days with full access to all features. No credit card required for the trial. If you choose to continue after the trial, you\'ll be billed the monthly subscription fee.'
+    question: 'How do the setup fees and monthly costs work?',
+    answer: 'Our Legal Suite is $1,500 setup + $200/month, and Healthcare Suite is $1,800 setup + $250/month. The setup fee covers complete implementation, customization, training, and integration with your existing systems. Monthly fees cover hosting, support, and ongoing maintenance.'
   },
   {
-    question: 'What platforms can I deploy my chatbot on?',
-    answer: 'The King Plan supports deployment across multiple channels including your website, WhatsApp Business, Facebook Messenger, Telegram, Instagram, and more. You can manage all conversations from a single dashboard.'
+    question: 'Is the healthcare solution truly HIPAA compliant?',
+    answer: 'Yes, absolutely. Our healthcare chatbot solution meets all HIPAA requirements including data encryption, access controls, audit logging, and secure data transmission. We provide a Business Associate Agreement (BAA) and undergo regular compliance audits.'
   },
   {
-    question: 'Is there a setup fee or hidden costs?',
-    answer: 'No, there are no setup fees or hidden costs. The King Plan pricing is transparent at $199/month with a 50% discount from the regular $399 price. You only pay the monthly subscription fee.'
+    question: 'What systems can you integrate with?',
+    answer: 'We integrate with popular practice management systems including Clio (legal), Epic, Cerner (healthcare), calendar systems like Calendly, CRM platforms, and communication tools. Custom integrations are included in your setup fee.'
   },
   {
-    question: 'What kind of support do I get?',
-    answer: 'King Plan subscribers receive priority 24/7 support via chat, email, and phone. You also get access to comprehensive documentation, video tutorials, and a dedicated customer success manager for enterprise accounts.'
+    question: 'How long does implementation take?',
+    answer: 'Most implementations are completed within 2-3 weeks. This includes chatbot customization, system integrations, staff training, and testing. We work around your schedule to minimize disruption to your practice.'
   },
   {
-    question: 'Can I integrate the chatbot with my existing systems?',
-    answer: 'Yes! The King Plan includes API access and supports integrations with popular CRM systems, e-commerce platforms, helpdesk software, and more. Our team can help you set up custom integrations.'
+    question: 'What kind of support do we receive?',
+    answer: 'You receive dedicated support from our team of legal and healthcare technology specialists. This includes 24/7 technical support, regular check-ins, performance optimization, and assistance with updates or changes to your chatbot.'
   },
   {
-    question: 'How does the AI understand and respond to customers?',
-    answer: 'Our chatbots use advanced natural language processing (NLP) and are powered by GPT-4. They can understand context, handle complex queries, and provide personalized responses. You can train the bot with your specific business knowledge.'
+    question: 'Can the chatbot handle complex legal or medical questions?',
+    answer: 'Our chatbots are designed to handle routine inquiries and collect information, but they intelligently route complex cases to appropriate staff members. They can provide general information while ensuring sensitive matters are handled by qualified professionals.'
   },
   {
-    question: 'What happens to my data and conversations?',
-    answer: 'Your data is completely secure and encrypted. We comply with GDPR, SOC 2, and other security standards. You own all your data and conversation history, and can export it at any time. We never share your data with third parties.'
+    question: 'How do you ensure patient/client data security?',
+    answer: 'We use enterprise-grade security including end-to-end encryption, secure cloud hosting, regular security audits, and strict access controls. All data is stored in compliance with HIPAA and legal industry standards. We never share or sell your data.'
   },
   {
-    question: 'Can I customize the chatbot\'s appearance and responses?',
-    answer: 'Absolutely! The King Plan includes full white-label customization. You can customize the chatbot\'s appearance, personality, responses, and even remove BotPenguin branding to match your brand identity.'
+    question: 'Can we customize the chatbot for our specific practice?',
+    answer: 'Absolutely! Each chatbot is fully customized for your practice including your branding, specific workflows, intake forms, appointment types, and communication style. We work with you to ensure it matches your practice\'s unique needs.'
   },
   {
-    question: 'What if I need to cancel my subscription?',
-    answer: 'You can cancel your subscription at any time with no cancellation fees. Your chatbot will remain active until the end of your current billing period. We also offer a 30-day money-back guarantee if you\'re not satisfied.'
+    question: 'What happens if we want to cancel?',
+    answer: 'You can cancel your monthly subscription at any time with 30 days notice. Your chatbot will remain active until the end of your billing period. The initial setup investment is non-refundable after implementation is complete.'
   },
   {
-    question: 'How quickly can I get my chatbot up and running?',
-    answer: 'Most customers have their chatbot live within 24-48 hours. We provide templates, guided setup, and our support team can help you get started quickly. Complex custom integrations may take a few days.'
+    question: 'Do you provide training for our staff?',
+    answer: 'Yes! Comprehensive staff training is included in your setup fee. We provide hands-on training sessions, documentation, and ongoing support to ensure your team can effectively manage and optimize the chatbot.'
   },
   {
-    question: 'Do you offer training and onboarding?',
-    answer: 'Yes! All King Plan subscribers get comprehensive onboarding including setup assistance, training sessions, and best practices guidance. We ensure you get maximum value from your AI chatbot investment.'
+    question: 'Can the chatbot work with multiple communication channels?',
+    answer: 'Yes, our chatbots deploy across your website, patient portals, WhatsApp, SMS, and other communication channels you use. This provides a consistent experience for clients/patients regardless of how they contact your practice.'
   }
 ]
 
@@ -75,7 +75,7 @@ export default function FAQAccordion() {
             Frequently Asked Questions
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Everything you need to know about our AI chatbot solutions and the King Plan
+            Everything you need to know about our legal and healthcare chatbot solutions
           </p>
         </motion.div>
 
@@ -124,24 +124,26 @@ export default function FAQAccordion() {
               Still have questions?
             </h3>
             <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-              Our support team is here to help you understand how AI chatbots can transform your business. 
-              Get personalized answers to your specific questions.
+              Our team specializes in legal and healthcare AI solutions. 
+              Get personalized answers about how chatbots can transform your practice.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
+              <motion.a
+                href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white text-brand-blue font-semibold px-8 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+                className="bg-white text-brand-blue font-semibold px-8 py-3 rounded-lg hover:bg-gray-50 transition-colors inline-block"
               >
                 Contact Support
-              </motion.button>
-              <motion.button
+              </motion.a>
+              <motion.a
+                href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-brand-blue transition-colors"
+                className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-brand-blue transition-colors inline-block"
               >
                 Schedule a Demo
-              </motion.button>
+              </motion.a>
             </div>
           </div>
         </motion.div>

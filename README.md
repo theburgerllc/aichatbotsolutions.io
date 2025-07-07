@@ -1,20 +1,25 @@
-# AI Chatbot Solutions - BotPenguin King Plan Reseller
+# AI Chatbot Solutions - Legal & Healthcare Automation
 
-A high-converting sales funnel website built with Next.js 15 for reselling BotPenguin's King Plan. This project implements a complete payment flow with Stripe integration and automatic BotPenguin partner account provisioning.
+A professional Next.js 15 website offering custom AI chatbot solutions specifically designed for legal and healthcare practices. This project implements industry-specific chatbot services powered by enterprise AI technology with HIPAA compliance and legal industry standards.
 
 ## 🚀 Overview
 
-This website serves as a reseller funnel for BotPenguin's King Plan, offering customers a 50% discount ($199/month instead of $399/month) while providing a 40% recurring revenue share to the reseller through BotPenguin's partner program.
+This website provides custom AI chatbot solutions for legal and healthcare professionals, featuring:
+- **Legal Chatbot Suite**: Client intake automation, appointment scheduling, case management workflows
+- **Healthcare Chatbot Suite**: HIPAA-compliant patient communication, appointment reminders, symptom triage
+
+The platform uses BotPenguin's enterprise infrastructure as the backend technology while delivering industry-specific solutions.
 
 ### Key Features
 
-- **Modern Sales Funnel**: Optimized for conversions with compelling copy and social proof
-- **Stripe Payment Integration**: Secure subscription billing with webhook handling
-- **BotPenguin Partner Integration**: Automatic account provisioning after payment
-- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Industry-Specific Solutions**: Tailored chatbot workflows for legal and healthcare practices
+- **Stripe Payment Integration**: Setup fees + monthly subscriptions with industry-specific pricing
+- **HIPAA Compliance**: Enterprise-grade security for healthcare communications
+- **Custom Integrations**: Practice management systems, EMR/EHR, CRM integration
+- **Professional Design**: Mobile-first approach with Tailwind CSS
 - **Performance Optimized**: Next.js 15 with App Router, image optimization, and SSR
 - **Analytics Ready**: Google Analytics 4 integration with conversion tracking
-- **Contact System**: SendGrid-powered contact form with auto-responses
+- **Contact System**: Industry-specific lead capture with SendGrid integration
 
 ## 🛠️ Tech Stack
 
@@ -105,17 +110,21 @@ RAZORPAY_KEY_SECRET=your_razorpay_secret
 ### 1. Stripe Configuration
 
 1. Create a Stripe account at [stripe.com](https://stripe.com)
-2. Create a recurring subscription product for the King Plan ($199/month)
-3. Copy the Price ID to `NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID`
+2. Create subscription products for both suites:
+   - Legal Chatbot Suite: Setup fee + $200/month recurring
+   - Healthcare Chatbot Suite: Setup fee + $250/month recurring
+3. Copy the Price IDs to environment variables:
+   - `NEXT_PUBLIC_STRIPE_LEGAL_SUITE_PRICE_ID`
+   - `NEXT_PUBLIC_STRIPE_HEALTHCARE_SUITE_PRICE_ID`
 4. Set up webhook endpoint: `https://yourdomain.com/api/webhooks/stripe`
 5. Configure webhook to listen for: `checkout.session.completed`, `invoice.payment_succeeded`, `invoice.payment_failed`
 
-### 2. BotPenguin Partner Setup
+### 2. BotPenguin Integration Setup
 
-1. Apply for BotPenguin's partner program
-2. Get your partner ID and redirect URL
-3. Configure the partner redirect URL in your BotPenguin dashboard
-4. Test the flow with a test payment to ensure proper account provisioning
+1. Set up BotPenguin enterprise account for backend infrastructure
+2. Configure partner integration for automated provisioning
+3. Set up HIPAA-compliant hosting for healthcare clients
+4. Test the flow with both legal and healthcare service configurations
 
 ### 3. SendGrid Configuration
 
@@ -187,17 +196,19 @@ npm start
 The website includes comprehensive tracking:
 
 - **Google Analytics 4**: Page views, user behavior, conversion tracking
-- **Stripe Analytics**: Payment success/failure rates
-- **Contact Form Tracking**: Submission rates and response times
-- **Conversion Events**: King Plan signups, trial starts, contact submissions
+- **Stripe Analytics**: Payment success/failure rates for both suites
+- **Contact Form Tracking**: Industry-specific lead tracking and response times
+- **Conversion Events**: Legal/Healthcare suite signups, consultation requests, demo bookings
 
 ## 🔒 Security Features
 
-- **Payment Security**: Stripe handles all payment processing
-- **Data Protection**: No sensitive data stored locally
-- **HTTPS Only**: All traffic encrypted
+- **Payment Security**: Stripe handles all payment processing with PCI compliance
+- **HIPAA Compliance**: Enterprise-grade encryption and access controls for healthcare data
+- **Data Protection**: No sensitive patient/client data stored locally
+- **HTTPS Only**: All traffic encrypted with SSL/TLS
 - **GDPR Compliant**: Cookie consent and privacy controls
 - **Webhook Verification**: All Stripe webhooks verified
+- **Audit Logging**: Complete audit trails for compliance requirements
 
 ## 🧪 Testing
 
@@ -207,15 +218,20 @@ The website includes comprehensive tracking:
    - Success: `4242 4242 4242 4242`
    - Declined: `4000 0000 0000 0002`
 
-2. **Test BotPenguin redirect** in sandbox mode
+2. **Test both service flows**:
+   - Legal Chatbot Suite checkout and provisioning
+   - Healthcare Chatbot Suite checkout and provisioning
 
 3. **Verify webhook handling** with Stripe CLI
+
+4. **Test industry-specific forms** and data collection
 
 ### Contact Form Testing
 
 1. Test form validation and error handling
-2. Verify SendGrid email delivery
-3. Check auto-response functionality
+2. Verify SendGrid email delivery for both legal and healthcare inquiries
+3. Test industry selection functionality
+4. Check auto-response functionality with industry-specific content
 
 ## 🎨 Customization
 
@@ -227,27 +243,30 @@ The website uses custom brand colors defined in `globals.css`:
 
 ### Logo Replacement
 
-Replace the placeholder logos in `/public/images/`:
-- `logo.svg` - Main logo for hero and footer
-- `nav_bar_logo.svg` - Icon for navbar
+Custom PNG logos are already integrated in `/public/images/`:
+- `logo.png` - Main logo for hero and footer
+- `nav_bar_logo.png` - Icon for navbar
+- `favicon.png` - Browser favicon
 
 ### Content Updates
 
-Main content areas to customize:
-- Hero section copy in `HeroSection.tsx`
-- Benefits and features in `BenefitsSection.tsx`
-- Testimonials in `TestimonialsSlider.tsx`
-- FAQ content in `FAQAccordion.tsx`
+Industry-specific content is already implemented:
+- Legal/Healthcare hero section in `HeroSection.tsx`
+- Practice-focused benefits in `BenefitsSection.tsx`
+- Professional testimonials in `TestimonialsSlider.tsx`
+- Industry-specific FAQ content in `FAQAccordion.tsx`
+- Two-tier pricing structure in `PricingTable.tsx`
 
 ## 📈 Conversion Optimization
 
 The website is optimized for conversions with:
 
-- **Clear Value Proposition**: 50% savings on King Plan
-- **Social Proof**: Customer testimonials and trust indicators
-- **Urgency Elements**: Limited-time offer messaging
-- **Risk Reversal**: Free trial and money-back guarantee
-- **Multiple CTAs**: Various entry points throughout the funnel
+- **Clear Value Proposition**: Industry-specific solutions for legal and healthcare practices
+- **Social Proof**: Professional testimonials from actual law firms and medical practices
+- **Trust Indicators**: HIPAA compliance badges and security certifications
+- **Risk Reversal**: Free consultation and comprehensive support included
+- **Multiple CTAs**: Targeted entry points for each industry throughout the funnel
+- **Practice-Focused Copy**: Industry-specific pain points and solutions highlighted
 
 ## 🤝 Support
 
@@ -261,6 +280,5 @@ For technical support or questions:
 
 This project is licensed under the Apache License 2.0. See [LICENSE](LICENSE) for details.
 
----
 
-**Built with ❤️ using Next.js 15, Tailwind CSS, and modern web technologies.**
+**Professional AI chatbot solutions for legal and healthcare practices. Built with Next.js 15, enterprise-grade security, and industry-specific workflows.**

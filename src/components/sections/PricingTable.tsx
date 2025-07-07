@@ -8,81 +8,57 @@ import { Check, Crown, Zap, Star } from 'lucide-react'
 
 const plans = [
   {
-    name: 'Starter',
-    price: '$49',
-    period: '/month',
-    description: 'Perfect for small businesses getting started with AI chatbots',
+    name: 'Legal Chatbot Suite',
+    price: '$1,500',
+    period: ' setup + $200/mo',
+    description: 'Complete AI automation solution for law firms and legal practices',
     features: [
-      'Up to 1,000 conversations/month',
-      '24/7 basic chatbot support',
-      'Website integration',
-      'Basic analytics dashboard',
-      'Email support',
-      'Standard templates'
+      'Automated client intake forms',
+      'Appointment scheduling & calendar integration',
+      'Document collection & organization',
+      'Lead qualification & routing',
+      'Multi-platform deployment (Website, WhatsApp, Facebook)',
+      'Custom legal workflows & automations',
+      'Client communication templates',
+      'Case status updates & notifications',
+      'Analytics & reporting dashboard',
+      'Priority support & training'
     ],
-    cta: 'Start Free Trial',
-    popular: false,
-    comingSoon: true
-  },
-  {
-    name: 'King Plan',
-    price: '$199',
-    period: '/month',
-    originalPrice: '$399',
-    description: 'Our most popular plan - everything you need to scale your business',
-    features: [
-      'Unlimited conversations',
-      'Advanced AI with GPT-4 integration',
-      'Multi-platform deployment (Website, WhatsApp, Facebook, Telegram)',
-      'Advanced analytics & reporting',
-      'Custom branding & white-label options',
-      'Priority 24/7 support',
-      'API access & integrations',
-      'Lead generation tools',
-      'E-commerce integrations',
-      'Custom workflows & automations',
-      'Team collaboration tools',
-      'Advanced security features'
-    ],
-    cta: 'Get King Plan Now',
+    cta: 'Get Legal Suite',
     popular: true,
     comingSoon: false,
-    badge: 'Most Popular',
-    savings: 'Save 50%'
+    badge: 'Popular Choice',
+    industry: 'legal'
   },
   {
-    name: 'Enterprise',
-    price: 'Custom',
-    period: '',
-    description: 'Tailored solutions for large organizations with specific requirements',
+    name: 'Healthcare Chatbot Suite',
+    price: '$1,800',
+    period: ' setup + $250/mo',
+    description: 'HIPAA-compliant AI solution for healthcare practices and medical facilities',
     features: [
-      'Everything in King Plan',
-      'Dedicated account manager',
-      'Custom AI model training',
-      'On-premise deployment options',
-      'Advanced security & compliance',
-      'Custom integrations',
-      'SLA guarantees',
-      'Training & onboarding'
+      'HIPAA-compliant patient messaging',
+      'Appointment scheduling & reminders',
+      'Symptom triage & pre-screening',
+      'Patient follow-up automation',
+      'Insurance verification assistance',
+      'Prescription refill requests',
+      'Patient education & resources',
+      'Multi-language support',
+      'EMR/EHR integration capabilities',
+      'Dedicated healthcare support team'
     ],
-    cta: 'Contact Sales',
+    cta: 'Get Healthcare Suite',
     popular: false,
-    comingSoon: true
+    comingSoon: false,
+    badge: 'HIPAA Compliant',
+    industry: 'healthcare'
   }
 ]
 
 export default function PricingTable() {
   const [isLoading, setIsLoading] = useState<string | null>(null)
 
-  const handlePlanSelection = async (planName: string) => {
-    if (planName !== 'King Plan') {
-      // For non-King plans, show coming soon or contact
-      if (planName === 'Enterprise') {
-        window.location.href = '/contact?subject=Enterprise%20Plan%20Inquiry'
-      }
-      return
-    }
-
+  const handlePlanSelection = async (planName: string, industry: string) => {
     setIsLoading(planName)
     
     try {
@@ -92,15 +68,15 @@ export default function PricingTable() {
       const utm_medium = urlParams.get('utm_medium') 
       const utm_campaign = urlParams.get('utm_campaign')
 
-      // Create Stripe checkout session for King Plan
+      // Create Stripe checkout session for the selected suite
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          plan: 'King Plan',
-          // Let the API use the environment variable for price ID
+          plan: planName,
+          industry: industry,
           ...(utm_source && { utm_source }),
           ...(utm_medium && { utm_medium }),
           ...(utm_campaign && { utm_campaign }),
@@ -116,15 +92,16 @@ export default function PricingTable() {
       if (data.url) {
         // Track the checkout initiation
         if (typeof window !== 'undefined' && window.gtag) {
+          const value = industry === 'legal' ? 1500 : 1800
           window.gtag('event', 'begin_checkout', {
             currency: 'USD',
-            value: 199,
+            value: value,
             items: [{
-              item_id: 'king_plan',
-              item_name: 'BotPenguin King Plan',
-              category: 'Subscription',
+              item_id: industry === 'legal' ? 'legal_chatbot_suite' : 'healthcare_chatbot_suite',
+              item_name: planName,
+              category: 'Service',
               quantity: 1,
-              price: 199
+              price: value
             }]
           })
         }
@@ -155,21 +132,21 @@ export default function PricingTable() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-heading">
-            Choose Your Plan
+            Industry-Specific Solutions
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Get started with our AI chatbot solutions. All plans include a 14-day free trial.
+            Custom AI chatbot solutions designed specifically for legal and healthcare practices.
           </p>
           <div className="inline-flex items-center px-4 py-2 bg-brand-green/20 rounded-full border border-brand-green/30">
             <Crown className="h-4 w-4 text-brand-green mr-2" />
             <span className="text-sm font-medium text-gray-800">
-              Powered by BotPenguin - Trusted by 100,000+ businesses
+              Powered by Enterprise AI Technology - HIPAA Compliant
             </span>
           </div>
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.name}
@@ -194,14 +171,6 @@ export default function PricingTable() {
                   </div>
                 )}
 
-                {/* Savings Badge */}
-                {plan.savings && (
-                  <div className="absolute -top-2 -right-2">
-                    <div className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                      {plan.savings}
-                    </div>
-                  </div>
-                )}
 
                 <CardHeader className="text-center pb-4">
                   <CardTitle className="text-2xl font-bold text-gray-900 mb-2">
@@ -209,11 +178,6 @@ export default function PricingTable() {
                   </CardTitle>
                   <div className="mb-4">
                     <div className="flex items-center justify-center">
-                      {plan.originalPrice && (
-                        <span className="text-gray-400 line-through text-lg mr-2">
-                          {plan.originalPrice}
-                        </span>
-                      )}
                       <span className="text-4xl font-bold text-gray-900">
                         {plan.price}
                       </span>
@@ -242,13 +206,11 @@ export default function PricingTable() {
 
                   {/* CTA Button */}
                   <Button
-                    onClick={() => handlePlanSelection(plan.name)}
-                    disabled={plan.comingSoon || isLoading === plan.name}
+                    onClick={() => handlePlanSelection(plan.name, plan.industry)}
+                    disabled={isLoading === plan.name}
                     className={`w-full py-3 font-semibold transition-all duration-200 ${
                       plan.popular
                         ? 'bg-brand-green hover:bg-brand-green/90 text-black hover:scale-105'
-                        : plan.comingSoon
-                        ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
                         : 'bg-brand-blue hover:bg-brand-blue/90 text-white hover:scale-105'
                     }`}
                   >
@@ -257,26 +219,20 @@ export default function PricingTable() {
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"></div>
                         Processing...
                       </div>
-                    ) : plan.comingSoon ? (
-                      'Coming Soon'
                     ) : (
                       <>
                         {plan.cta}
-                        {plan.name === 'King Plan' && (
-                          <Zap className="ml-2 h-4 w-4" />
-                        )}
+                        <Zap className="ml-2 h-4 w-4" />
                       </>
                     )}
                   </Button>
 
                   {/* Additional Info */}
-                  {plan.name === 'King Plan' && (
-                    <div className="mt-4 text-center">
-                      <p className="text-xs text-gray-500">
-                        14-day free trial • No setup fees • Cancel anytime
-                      </p>
-                    </div>
-                  )}
+                  <div className="mt-4 text-center">
+                    <p className="text-xs text-gray-500">
+                      Free consultation • Full setup included • Ongoing support
+                    </p>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -293,26 +249,26 @@ export default function PricingTable() {
         >
           <div className="bg-white rounded-2xl shadow-lg p-8 max-w-4xl mx-auto">
             <h3 className="text-xl font-bold text-gray-900 mb-6">
-              Why Choose Our King Plan?
+              Why Choose Our Industry-Specific Solutions?
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-brand-blue mb-2">50%</div>
-                <div className="text-gray-600 text-sm">Cost Savings vs Enterprise Plans</div>
+                <div className="text-2xl font-bold text-brand-blue mb-2">40%</div>
+                <div className="text-gray-600 text-sm">Reduction in No-Shows</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-brand-blue mb-2">24/7</div>
-                <div className="text-gray-600 text-sm">Priority Support</div>
+                <div className="text-gray-600 text-sm">Automated Client Support</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-brand-blue mb-2">Unlimited</div>
-                <div className="text-gray-600 text-sm">Conversations & Integrations</div>
+                <div className="text-2xl font-bold text-brand-blue mb-2">HIPAA</div>
+                <div className="text-gray-600 text-sm">Compliant & Secure</div>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Money Back Guarantee */}
+        {/* Guarantee */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -323,7 +279,7 @@ export default function PricingTable() {
           <div className="inline-flex items-center px-6 py-3 bg-green-100 rounded-full border border-green-200">
             <Check className="h-5 w-5 text-green-600 mr-2" />
             <span className="text-green-800 font-medium">
-              30-day money-back guarantee on all plans
+              Free consultation and setup support included
             </span>
           </div>
         </motion.div>

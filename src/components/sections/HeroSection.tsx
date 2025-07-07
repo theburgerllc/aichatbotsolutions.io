@@ -32,7 +32,7 @@ export default function HeroSection() {
             >
               <CheckCircle className="h-4 w-4 text-brand-green mr-2" />
               <span className="text-sm font-medium text-gray-800">
-                Powered by BotPenguin King Plan
+                Powered by Enterprise AI Technology
               </span>
             </motion.div>
 
@@ -44,12 +44,12 @@ export default function HeroSection() {
               className="space-y-4"
             >
               <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight font-heading">
-                Transform Your Business with
-                <span className="text-brand-blue"> AI Chatbots</span>
+                Custom AI Chatbots for
+                <span className="text-brand-blue"> Legal & Healthcare</span>
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">
-                Automate customer support, boost sales, and provide 24/7 assistance 
-                with our intelligent chatbot solutions.
+                Automate client intake, appointment scheduling, and patient communication 
+                with HIPAA-compliant, industry-specific chatbot solutions.
               </p>
             </motion.div>
 
@@ -61,10 +61,10 @@ export default function HeroSection() {
               className="flex flex-wrap gap-4 text-sm"
             >
               {[
-                '24/7 Customer Support',
-                'Increase Sales by 40%',
-                'Reduce Response Time',
-                'Multi-Platform Integration'
+                'HIPAA Compliant',
+                'Reduce No-Shows by 40%',
+                'Automated Client Intake',
+                'Multi-Platform Deployment'
               ].map((benefit, index) => (
                 <div key={index} className="flex items-center space-x-2">
                   <CheckCircle className="h-4 w-4 text-brand-green" />
@@ -86,7 +86,7 @@ export default function HeroSection() {
                 className="bg-brand-green hover:bg-brand-green/90 text-black font-semibold px-8 py-4 text-lg hover:scale-105 transition-all duration-200 shadow-lg"
               >
                 <Link href="/pricing">
-                  Start Free Trial
+                  View Solutions
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -97,9 +97,9 @@ export default function HeroSection() {
                 size="lg"
                 className="border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white px-8 py-4 text-lg transition-all duration-200"
               >
-                <Link href="#demo">
+                <Link href="/contact">
                   <Play className="mr-2 h-5 w-5" />
-                  Watch Demo
+                  Schedule Demo
                 </Link>
               </Button>
             </motion.div>
@@ -111,12 +111,12 @@ export default function HeroSection() {
               transition={{ delay: 0.6 }}
               className="pt-8"
             >
-              <p className="text-sm text-gray-500 mb-4">Trusted by 10,000+ businesses worldwide</p>
+              <p className="text-sm text-gray-500 mb-4">Trusted by law firms and healthcare practices nationwide</p>
               <div className="flex items-center space-x-6 opacity-60">
-                <div className="text-gray-400 font-semibold">Microsoft</div>
-                <div className="text-gray-400 font-semibold">Shopify</div>
-                <div className="text-gray-400 font-semibold">Slack</div>
-                <div className="text-gray-400 font-semibold">Zendesk</div>
+                <div className="text-gray-400 font-semibold">Legal Solutions</div>
+                <div className="text-gray-400 font-semibold">Healthcare AI</div>
+                <div className="text-gray-400 font-semibold">HIPAA Compliant</div>
+                <div className="text-gray-400 font-semibold">24/7 Support</div>
               </div>
             </motion.div>
           </motion.div>
@@ -137,7 +137,7 @@ export default function HeroSection() {
                       <span className="text-white font-semibold">AI</span>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">Support Bot</h3>
+                      <h3 className="font-semibold text-gray-900">Legal Assistant</h3>
                       <p className="text-sm text-green-500">● Online</p>
                     </div>
                   </div>
@@ -151,7 +151,7 @@ export default function HeroSection() {
                     </div>
                     <div className="bg-gray-100 rounded-2xl px-4 py-3 max-w-xs">
                       <p className="text-sm text-gray-800">
-                        Hi! I'm here to help. What can I assist you with today?
+                        Hi! I can help schedule consultations and collect client information. How can I assist you?
                       </p>
                     </div>
                   </div>
@@ -160,7 +160,7 @@ export default function HeroSection() {
                   <div className="flex items-start space-x-3 justify-end">
                     <div className="bg-brand-blue rounded-2xl px-4 py-3 max-w-xs">
                       <p className="text-sm text-white">
-                        I need help with pricing plans
+                        I need to schedule a consultation for family law
                       </p>
                     </div>
                     <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
@@ -175,8 +175,7 @@ export default function HeroSection() {
                     </div>
                     <div className="bg-gray-100 rounded-2xl px-4 py-3 max-w-xs">
                       <p className="text-sm text-gray-800">
-                        I'd be happy to help! We have flexible plans starting at $49/month. 
-                        Would you like to see our pricing options?
+                        Perfect! I can schedule your family law consultation. What dates work best for you? I'll also collect some basic information to help prepare.
                       </p>
                     </div>
                   </div>

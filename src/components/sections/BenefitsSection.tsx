@@ -16,43 +16,43 @@ import {
 const benefits = [
   {
     icon: Clock,
-    title: '24/7 Availability',
-    description: 'Your AI chatbot works around the clock, providing instant responses to customers anytime, anywhere.'
+    title: '24/7 Client Support',
+    description: 'Your AI assistant handles client inquiries and appointment scheduling around the clock, even after hours.'
   },
   {
     icon: TrendingUp,
-    title: 'Increase Sales by 40%',
-    description: 'Convert more visitors into customers with proactive engagement and personalized product recommendations.'
+    title: 'Reduce No-Shows by 40%',
+    description: 'Automated appointment reminders and confirmations significantly improve patient/client attendance rates.'
   },
   {
     icon: Users,
-    title: 'Reduce Support Costs',
-    description: 'Automate up to 80% of customer inquiries, reducing workload on your support team dramatically.'
+    title: 'Streamline Intake Process',
+    description: 'Automatically collect client information, medical history, and legal case details before appointments.'
   },
   {
     icon: Zap,
-    title: 'Instant Responses',
-    description: 'Eliminate wait times with immediate answers to common questions and seamless handoffs to human agents.'
+    title: 'Instant Triage & Routing',
+    description: 'Intelligently categorize urgent cases and route them to the appropriate staff members immediately.'
   },
   {
     icon: Shield,
-    title: 'Enterprise Security',
-    description: 'Bank-level security with data encryption, compliance certifications, and privacy protection.'
+    title: 'HIPAA Compliant Security',
+    description: 'Bank-level encryption and HIPAA compliance ensures patient data and legal information stays protected.'
   },
   {
     icon: MessageSquare,
-    title: 'Multi-Channel Support',
-    description: 'Deploy across website, WhatsApp, Facebook Messenger, Telegram, and other popular platforms.'
+    title: 'Multi-Platform Messaging',
+    description: 'Connect with clients through website chat, WhatsApp, SMS, and patient portal integrations.'
   },
   {
     icon: BarChart3,
-    title: 'Advanced Analytics',
-    description: 'Get detailed insights into customer behavior, conversation patterns, and performance metrics.'
+    title: 'Practice Analytics',
+    description: 'Track appointment patterns, common inquiries, and client satisfaction to optimize your practice.'
   },
   {
     icon: Globe,
-    title: 'Global Reach',
-    description: 'Support customers in 100+ languages with intelligent translation and localization features.'
+    title: 'Multilingual Support',
+    description: 'Serve diverse communities with intelligent translation capabilities in 100+ languages.'
   }
 ]
 
@@ -69,10 +69,10 @@ export default function BenefitsSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-heading">
-            Why Choose Our AI Chatbots?
+            Streamline Your Practice with AI
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Transform your customer experience with intelligent automation that delivers results
+            Automate routine tasks, improve client experience, and focus on what matters most - providing excellent care
           </p>
         </motion.div>
 
@@ -122,26 +122,28 @@ export default function BenefitsSection() {
         >
           <div className="bg-white rounded-2xl shadow-lg p-8 max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold text-gray-900 mb-4 font-heading">
-              Ready to Transform Your Business?
+              Ready to Transform Your Practice?
             </h3>
             <p className="text-gray-600 mb-6">
-              Join thousands of businesses already using AI chatbots to grow their revenue and improve customer satisfaction.
+              Join hundreds of legal and healthcare practices already using AI to improve efficiency and client satisfaction.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
+              <motion.a
+                href="/pricing"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-brand-green hover:bg-brand-green/90 text-black font-semibold px-8 py-3 rounded-lg transition-all duration-200"
+                className="bg-brand-green hover:bg-brand-green/90 text-black font-semibold px-8 py-3 rounded-lg transition-all duration-200 inline-block"
               >
-                Start Your Free Trial
-              </motion.button>
-              <motion.button
+                View Solutions
+              </motion.a>
+              <motion.a
+                href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200"
+                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 inline-block"
               >
                 Schedule a Demo
-              </motion.button>
+              </motion.a>
             </div>
           </div>
         </motion.div>

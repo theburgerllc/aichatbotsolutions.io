@@ -13,51 +13,51 @@ import 'swiper/css/navigation'
 
 const testimonials = [
   {
-    name: 'Sarah Johnson',
-    position: 'CEO',
-    company: 'TechStart Inc.',
+    name: 'Dr. Sarah Martinez',
+    position: 'Practice Administrator',
+    company: 'Martinez Family Medicine',
     avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b1-494790108755-2616b612b17d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80',
-    content: 'Our customer support costs dropped by 60% within the first month of implementing their AI chatbot. The ROI was incredible, and customer satisfaction actually improved!',
+    content: 'Our no-show rate dropped from 25% to 8% after implementing the healthcare chatbot. Automated appointment reminders and easy rescheduling have transformed our practice efficiency.',
     rating: 5
   },
   {
-    name: 'Michael Chen',
-    position: 'Marketing Director',
-    company: 'E-commerce Plus',
+    name: 'Michael Chen, Esq.',
+    position: 'Managing Partner',
+    company: 'Chen & Associates Law Firm',
     avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80',
-    content: 'The chatbot increased our sales conversion by 45%. It guides customers through our product catalog perfectly and answers questions instantly, even at 3 AM.',
+    content: 'The legal chatbot handles client intake brilliantly. It collects all necessary information before consultations, saving us 2 hours per day and improving our case preparation.',
     rating: 5
   },
   {
-    name: 'Emily Rodriguez',
-    position: 'Customer Success Manager',
-    company: 'SaaS Solutions',
+    name: 'Dr. Emily Rodriguez',
+    position: 'Chief Medical Officer',
+    company: 'Riverside Medical Center',
     avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80',
-    content: 'Implementation was seamless, and the analytics dashboard gives us incredible insights into customer behavior. Our team can focus on complex issues while the bot handles routine queries.',
+    content: 'HIPAA compliance was seamless, and our patients love the 24/7 symptom triage. The chatbot routes urgent cases appropriately while handling routine inquiries automatically.',
     rating: 5
   },
   {
-    name: 'David Thompson',
-    position: 'Operations Manager',
-    company: 'Retail Chain Co.',
+    name: 'David Thompson, Esq.',
+    position: 'Solo Practitioner',
+    company: 'Thompson Immigration Law',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80',
-    content: 'We deployed across 15 store locations and 3 online platforms. The multi-channel support is fantastic - customers get consistent help whether they\'re on our website or WhatsApp.',
+    content: 'As a solo practitioner, the chatbot is like having a 24/7 receptionist. It screens potential clients, schedules consultations, and collects case details - incredibly valuable.',
     rating: 5
   },
   {
-    name: 'Lisa Wang',
-    position: 'Head of Customer Experience',
-    company: 'Financial Services Ltd.',
+    name: 'Dr. Lisa Wang',
+    position: 'Dental Practice Owner',
+    company: 'SmileCare Dental Group',
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80',
-    content: 'Security was our biggest concern, but their enterprise-grade protection exceeded our compliance requirements. We now handle 3x more customer inquiries with the same team size.',
+    content: 'Patient satisfaction scores increased by 35% since implementing the healthcare chatbot. Patients can schedule appointments, get post-op instructions, and ask questions anytime.',
     rating: 5
   },
   {
-    name: 'James Miller',
-    position: 'Founder',
-    company: 'Local Business Hub',
+    name: 'James Miller, Esq.',
+    position: 'Family Law Attorney',
+    company: 'Miller Family Law',
     avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80',
-    content: 'As a small business, we couldn\'t afford 24/7 support staff. Now our chatbot handles customer inquiries around the clock, and our revenue has grown 30% in just 6 months.',
+    content: 'The chatbot helps clients understand our services and costs upfront. This transparency has improved client relationships and reduced time spent on initial consultations.',
     rating: 5
   }
 ]
@@ -75,10 +75,10 @@ export default function TestimonialsSlider() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-heading">
-            What Our Clients Say
+            Trusted by Legal & Healthcare Professionals
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Don't just take our word for it - see how businesses like yours are transforming their customer experience
+            See how law firms and healthcare practices are improving efficiency and client satisfaction with our AI solutions
           </p>
         </motion.div>
 
@@ -176,20 +176,20 @@ export default function TestimonialsSlider() {
           <div className="bg-gray-50 rounded-2xl p-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-3xl font-bold text-brand-blue mb-2">10,000+</div>
-                <div className="text-gray-600">Happy Customers</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-brand-blue mb-2">99.9%</div>
-                <div className="text-gray-600">Uptime</div>
+                <div className="text-3xl font-bold text-brand-blue mb-2">500+</div>
+                <div className="text-gray-600">Practices Served</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-brand-blue mb-2">40%</div>
-                <div className="text-gray-600">Average Sales Increase</div>
+                <div className="text-gray-600">Reduction in No-Shows</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-blue mb-2">HIPAA</div>
+                <div className="text-gray-600">Compliant</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-brand-blue mb-2">24/7</div>
-                <div className="text-gray-600">Support Available</div>
+                <div className="text-gray-600">AI Support</div>
               </div>
             </div>
           </div>
