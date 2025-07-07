@@ -32,7 +32,7 @@ export default function Footer() {
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
               <Image
-                src="/images/logo.svg"
+                src="/images/logo.png"
                 alt="AI Chatbot Solutions"
                 width={150}
                 height={60}
