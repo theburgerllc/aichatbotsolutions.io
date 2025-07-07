@@ -7,6 +7,25 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(request: NextRequest) {
   try {
+    // Validate required environment variables first
+    const requiredEnvVars = {
+      STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+      NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+      NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID: process.env.NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID,
+    }
+
+    const missingVars = Object.entries(requiredEnvVars)
+      .filter(([, value]) => !value)
+      .map(([key]) => key)
+
+    if (missingVars.length > 0) {
+      console.error('Missing required environment variables:', missingVars)
+      return NextResponse.json(
+        { error: 'Server configuration error. Please contact support.' },
+        { status: 500 }
+      )
+    }
+
     const { plan, priceId, customerEmail, utm_source, utm_medium, utm_campaign } = await request.json()
 
     // Input validation
@@ -17,20 +36,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Use environment variable if priceId not provided
+    // Use environment variable if priceId not provided, with validation
     const finalPriceId = priceId || process.env.NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID
 
-    if (!finalPriceId) {
+    // Additional validation for price ID format
+    if (!finalPriceId || !finalPriceId.startsWith('price_')) {
+      console.error('Invalid price ID format:', finalPriceId)
       return NextResponse.json(
-        { error: 'Price ID is required. Please configure NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID.' },
-        { status: 400 }
-      )
-    }
-
-    // Validate required environment variables
-    if (!process.env.NEXT_PUBLIC_APP_URL) {
-      return NextResponse.json(
-        { error: 'Application URL is not configured.' },
+        { error: 'Invalid pricing configuration. Please contact support.' },
         { status: 500 }
       )
     }

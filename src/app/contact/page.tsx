@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Clock, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -29,6 +29,15 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [statusMessage, setStatusMessage] = useState('')
+
+  // Pre-fill form from URL parameters (for Enterprise inquiries)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const subject = urlParams.get('subject')
+    if (subject) {
+      setFormData(prev => ({ ...prev, subject: decodeURIComponent(subject) }))
+    }
+  }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target

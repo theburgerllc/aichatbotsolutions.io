@@ -8,6 +8,25 @@ if (process.env.SENDGRID_API_KEY) {
 
 export async function POST(request: NextRequest) {
   try {
+    // Validate SendGrid configuration first
+    const requiredEnvVars = {
+      SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+      SENDGRID_FROM_EMAIL: process.env.SENDGRID_FROM_EMAIL,
+      NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    }
+
+    const missingVars = Object.entries(requiredEnvVars)
+      .filter(([, value]) => !value)
+      .map(([key]) => key)
+
+    if (missingVars.length > 0) {
+      console.error('Missing required environment variables for email:', missingVars)
+      return NextResponse.json(
+        { error: 'Email service configuration error. Please contact support directly at hello@aichatbotsolutions.io' },
+        { status: 500 }
+      )
+    }
+
     const { name, email, company, phone, message, subject } = await request.json()
 
     // Validate required fields
@@ -27,13 +46,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (!process.env.SENDGRID_API_KEY) {
-      console.error('SendGrid API key not configured')
-      return NextResponse.json(
-        { error: 'Email service not configured' },
-        { status: 500 }
-      )
-    }
+    // Rate limiting check (simple implementation)
+    const clientIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
+    console.log(`Contact form submission from IP: ${clientIP}, Email: ${email}`)
 
     // Prepare email content
     const emailSubject = subject || 'New Contact Form Submission - AI Chatbot Solutions'

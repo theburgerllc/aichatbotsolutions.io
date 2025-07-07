@@ -59,26 +59,30 @@ Open [http://localhost:3000](http://localhost:3000) to view the website.
 
 Copy `.env.example` to `.env.local` and configure the following:
 
-### Required Variables
+### Development Setup
 
 ```env
-# Stripe Configuration (Required for payments)
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_your_publishable_key
-STRIPE_SECRET_KEY=sk_live_your_secret_key
-STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
-NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID=price_your_king_plan_price_id
+# Stripe Configuration (Use TEST keys for development)
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_test_publishable_key
+STRIPE_SECRET_KEY=sk_test_your_test_secret_key
+STRIPE_WEBHOOK_SECRET=whsec_test_your_webhook_secret
+NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID=price_test_king_plan_id
 
-# BotPenguin Partner Integration (Required)
+# BotPenguin Partner Integration
 NEXT_PUBLIC_BOTPENGUIN_PARTNER_REDIRECT_URL=https://partner.botpenguin.com/reseller/sign_up
 NEXT_PUBLIC_BOTPENGUIN_PARTNER_ID=your_partner_id_here
 
-# SendGrid Configuration (Required for contact form)
+# SendGrid Configuration
 SENDGRID_API_KEY=SG.your_sendgrid_api_key_here
 SENDGRID_FROM_EMAIL=noreply@yourdomain.com
 
 # Application Configuration
-NEXT_PUBLIC_APP_URL=https://yourdomain.com
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
+
+### Production Setup
+
+For production deployment, see `PRODUCTION_SETUP.md` for detailed configuration instructions.
 
 ### Optional Variables
 

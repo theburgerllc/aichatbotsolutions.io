@@ -77,12 +77,21 @@ export default function PricingTable() {
   const handlePlanSelection = async (planName: string) => {
     if (planName !== 'King Plan') {
       // For non-King plans, show coming soon or contact
+      if (planName === 'Enterprise') {
+        window.location.href = '/contact?subject=Enterprise%20Plan%20Inquiry'
+      }
       return
     }
 
     setIsLoading(planName)
     
     try {
+      // Get UTM parameters for tracking
+      const urlParams = new URLSearchParams(window.location.search)
+      const utm_source = urlParams.get('utm_source')
+      const utm_medium = urlParams.get('utm_medium') 
+      const utm_campaign = urlParams.get('utm_campaign')
+
       // Create Stripe checkout session for King Plan
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
@@ -91,19 +100,44 @@ export default function PricingTable() {
         },
         body: JSON.stringify({
           plan: 'King Plan',
-          priceId: process.env.NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID,
+          // Let the API use the environment variable for price ID
+          ...(utm_source && { utm_source }),
+          ...(utm_medium && { utm_medium }),
+          ...(utm_campaign && { utm_campaign }),
         }),
       })
 
-      const { url } = await response.json()
+      const data = await response.json()
       
-      if (url) {
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create checkout session')
+      }
+      
+      if (data.url) {
+        // Track the checkout initiation
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'begin_checkout', {
+            currency: 'USD',
+            value: 199,
+            items: [{
+              item_id: 'king_plan',
+              item_name: 'BotPenguin King Plan',
+              category: 'Subscription',
+              quantity: 1,
+              price: 199
+            }]
+          })
+        }
+        
         // Redirect to Stripe Checkout
-        window.location.href = url
+        window.location.href = data.url
+      } else {
+        throw new Error('No checkout URL received')
       }
     } catch (error) {
       console.error('Error creating checkout session:', error)
-      alert('Something went wrong. Please try again.')
+      const errorMessage = error instanceof Error ? error.message : 'Something went wrong. Please try again.'
+      alert(`Payment Error: ${errorMessage}\n\nIf this problem persists, please contact support at hello@aichatbotsolutions.io`)
     } finally {
       setIsLoading(null)
     }
