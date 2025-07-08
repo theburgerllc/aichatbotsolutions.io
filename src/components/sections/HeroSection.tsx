@@ -81,14 +81,25 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row gap-4"
             >
               <Button
-                asChild
                 size="lg"
                 className="bg-brand-green hover:bg-brand-green/90 text-black font-semibold px-8 py-4 text-lg hover:scale-105 transition-all duration-200 shadow-lg"
+                onClick={() => {
+                  document.getElementById('interactive-demo')?.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                  });
+                  // Track demo navigation
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'demo_launch_from_hero', {
+                      event_category: 'interactive_demo',
+                      event_label: 'hero_cta',
+                      value: 1
+                    });
+                  }
+                }}
               >
-                <Link href="/pricing">
-                  View Solutions
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+                <Play className="mr-2 h-5 w-5" />
+                Launch Interactive Demo
               </Button>
               
               <Button
@@ -97,9 +108,9 @@ export default function HeroSection() {
                 size="lg"
                 className="border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white px-8 py-4 text-lg transition-all duration-200"
               >
-                <Link href="/contact">
-                  <Play className="mr-2 h-5 w-5" />
-                  Schedule Demo
+                <Link href="/pricing">
+                  View Solutions
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
             </motion.div>
