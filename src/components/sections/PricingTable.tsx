@@ -26,10 +26,33 @@ const plans = [
       'Priority support & training'
     ],
     cta: 'Get Legal Suite',
+    popular: false,
+    comingSoon: false,
+    badge: 'Most Popular',
+    industry: 'legal'
+  },
+  {
+    name: 'E‑Commerce Chatbot Suite',
+    price: '$1,700',
+    period: ' setup + $225/mo',
+    description: 'Advanced AI solution for online stores and e‑commerce businesses',
+    features: [
+      'Cart abandonment recovery automation',
+      'Intelligent product recommendations',
+      'Shopify & WooCommerce integration',
+      'Order tracking & status updates',
+      'Customer support ticket routing',
+      'Multilingual customer communication',
+      'Returns & refunds processing',
+      'Inventory notifications & alerts',
+      'Sales analytics & conversion tracking',
+      'Priority e‑commerce support team'
+    ],
+    cta: 'Get E‑Commerce Suite',
     popular: true,
     comingSoon: false,
-    badge: 'Popular Choice',
-    industry: 'legal'
+    badge: 'Best Value',
+    industry: 'ecommerce'
   },
   {
     name: 'Healthcare Chatbot Suite',
@@ -93,12 +116,15 @@ export default function PricingTable() {
       if (data.url) {
         // Track the checkout initiation
         if (typeof window !== 'undefined' && window.gtag) {
-          const value = industry === 'legal' ? 1500 : 1800
+          const value = industry === 'legal' ? 1500 : industry === 'ecommerce' ? 1700 : 1800
+          const itemId = industry === 'legal' ? 'legal_chatbot_suite' : 
+                        industry === 'ecommerce' ? 'ecommerce_chatbot_suite' : 
+                        'healthcare_chatbot_suite'
           window.gtag('event', 'begin_checkout', {
             currency: 'USD',
             value: value,
             items: [{
-              item_id: industry === 'legal' ? 'legal_chatbot_suite' : 'healthcare_chatbot_suite',
+              item_id: itemId,
               item_name: planName,
               category: 'Service',
               quantity: 1,
@@ -136,7 +162,7 @@ export default function PricingTable() {
             Industry-Specific Solutions
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Custom AI chatbot solutions designed specifically for legal and healthcare practices.
+            Custom AI chatbot solutions designed specifically for legal, e‑commerce, and healthcare businesses.
           </p>
           <div className="inline-flex items-center px-4 py-2 bg-brand-green/20 rounded-full border border-brand-green/30">
             <Crown className="h-4 w-4 text-brand-green mr-2" />
@@ -147,7 +173,7 @@ export default function PricingTable() {
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
             <SlideIn key={plan.name} direction="up" delay={index * 200}>
               <div className={`relative ${plan.popular ? 'md:scale-105 md:-mt-4' : ''}`}>
@@ -204,7 +230,9 @@ export default function PricingTable() {
                     onClick={() => handlePlanSelection(plan.name, plan.industry)}
                     disabled={isLoading === plan.name}
                     className={`w-full py-3 font-semibold transition-all duration-200 ${
-                      plan.popular
+                      plan.industry === 'ecommerce'
+                        ? 'bg-orange-500 hover:bg-orange-600 text-white hover:scale-105'
+                        : plan.popular
                         ? 'bg-brand-green hover:bg-brand-green/90 text-black hover:scale-105'
                         : 'bg-brand-blue hover:bg-brand-blue/90 text-white hover:scale-105'
                     }`}

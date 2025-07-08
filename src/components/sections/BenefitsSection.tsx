@@ -11,7 +11,9 @@ import {
   Shield, 
   MessageSquare,
   BarChart3,
-  Globe
+  Globe,
+  ShoppingCart,
+  Package
 } from 'lucide-react'
 
 const benefits = [
@@ -29,6 +31,16 @@ const benefits = [
     icon: Users,
     title: 'Streamline Intake Process',
     description: 'Automatically collect client information, medical history, and legal case details before appointments.'
+  },
+  {
+    icon: ShoppingCart,
+    title: 'Cart Abandonment Recovery',
+    description: 'Automatically recover lost sales with personalized messages and incentives when customers leave items in their cart.'
+  },
+  {
+    icon: Package,
+    title: 'Order Tracking & Support',
+    description: 'Provide instant order status updates and handle customer service inquiries about shipping and returns.'
   },
   {
     icon: Zap,
@@ -70,7 +82,7 @@ export default function BenefitsSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-heading">
-            Streamline Your Practice with AI
+            Streamline Your Business with AI
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Automate routine tasks, improve client experience, and focus on what matters most - providing excellent care

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
-import { Play, Loader, MessageCircle, Users, Building, Stethoscope } from 'lucide-react'
+import { Play, Loader, MessageCircle, Users, Building, Stethoscope, ShoppingCart } from 'lucide-react'
 
 // Dynamic import to prevent SSR issues
 const ChatBot = lazy(() => import('react-chatbotify'))
@@ -17,7 +17,7 @@ export default function DemoEmbed({
   className = "" 
 }: DemoEmbedProps) {
   const [isLoading, setIsLoading] = useState(true)
-  const [demoType, setDemoType] = useState<'legal' | 'healthcare' | null>(null)
+  const [demoType, setDemoType] = useState<'legal' | 'healthcare' | 'ecommerce' | null>(null)
   const [showChat, setShowChat] = useState(false)
 
   // Track demo events to Google Analytics
@@ -42,7 +42,7 @@ export default function DemoEmbed({
     }
   }
 
-  const handleDemoStart = (type: 'legal' | 'healthcare') => {
+  const handleDemoStart = (type: 'legal' | 'healthcare' | 'ecommerce') => {
     setDemoType(type)
     setShowChat(true)
     trackDemoEvent('demo_started', { demo_type: type, value: 1 })
@@ -393,27 +393,178 @@ export default function DemoEmbed({
     }
   }
 
+  // E-Commerce Demo Flow
+  const ecommerceFlow = {
+    start: {
+      message: "Hi! I'm your e\u2011commerce assistant. I can help with orders, product questions, returns, and customer support. How can I assist you today?",
+      options: ["Track My Order", "Product Questions", "Returns & Refunds", "Technical Support", "Account Help"],
+      path: "Track My Order"
+    },
+    "Track My Order": {
+      message: "I'll help you track your order. Please provide your order number or email address used for the purchase.",
+      options: ["Enter Order Number", "Use Email Address", "I Don't Have Order Info", "Recent Orders"],
+      path: "Enter Order Number"
+    },
+    "Enter Order Number": {
+      message: "Perfect! I found your order #12345. Here are the details:\\n\\n\u2713 Status: Shipped\\n\u2713 Tracking: UPS123456789\\n\u2713 Expected delivery: Tomorrow by 6 PM\\n\u2713 Items: 2x Blue T-Shirts (Size M)\\n\\nWould you like me to send tracking updates to your phone?",
+      options: ["Yes, Send Updates", "Track Package", "Contact Carrier", "Ask Another Question"],
+      path: "Yes, Send Updates"
+    },
+    "Use Email Address": {
+      message: "I'll look up orders associated with your email. I found 3 recent orders. Which one are you looking for?",
+      options: ["Order #12345 (Yesterday)", "Order #12344 (Last Week)", "Order #12343 (2 Weeks Ago)", "Different Order"],
+      path: "Order #12345 (Yesterday)"
+    },
+    "Order #12345 (Yesterday)": {
+      message: "Here's your order from yesterday:\\n\\n\u2713 Status: Processing\\n\u2713 Items: Wireless Headphones\\n\u2713 Expected ship date: Today\\n\u2713 Estimated delivery: 2-3 business days\\n\\nWould you like to upgrade to express shipping?",
+      options: ["Upgrade Shipping", "Keep Standard", "Cancel Order", "Ask Another Question"],
+      path: "Upgrade Shipping"
+    },
+    "Product Questions": {
+      message: "I can help you with product information, availability, and recommendations. What would you like to know?",
+      options: ["Product Availability", "Size Guide", "Product Recommendations", "Technical Specs", "Customer Reviews"],
+      path: "Product Availability"
+    },
+    "Product Availability": {
+      message: "Which product are you interested in? I can check stock levels and notify you when items are back in stock.",
+      options: ["iPhone Cases", "Wireless Chargers", "Bluetooth Speakers", "Smart Watches", "Other Product"],
+      path: "iPhone Cases"
+    },
+    "iPhone Cases": {
+      message: "We have great iPhone cases in stock! Here's what's available:\\n\\n\u2713 Clear Case - $29.99 (15 in stock)\\n\u2713 Leather Case - $59.99 (8 in stock)\\n\u2713 MagSafe Case - $49.99 (22 in stock)\\n\u2713 Rugged Case - $39.99 (5 in stock)\\n\\nWhich iPhone model do you have?",
+      options: ["iPhone 15", "iPhone 14", "iPhone 13", "Other Model", "Add to Cart"],
+      path: "iPhone 15"
+    },
+    "iPhone 15": {
+      message: "Perfect! All our cases are compatible with iPhone 15. The MagSafe case is our most popular choice - it supports wireless charging and has 4.8/5 stars.\\n\\nWould you like to see more details or add one to your cart?",
+      options: ["Add MagSafe Case", "See All Options", "Read Reviews", "Compare Cases"],
+      path: "Add MagSafe Case"
+    },
+    "Add MagSafe Case": {
+      message: "Great choice! I've added the iPhone 15 MagSafe Case ($49.99) to your cart. Would you like to continue shopping or proceed to checkout?",
+      options: ["Proceed to Checkout", "Continue Shopping", "Apply Discount Code", "Ask Another Question"],
+      path: "Proceed to Checkout"
+    },
+    "Returns & Refunds": {
+      message: "I can help you with returns and refunds. We offer 30-day returns on most items. What would you like to do?",
+      options: ["Start a Return", "Check Return Status", "Refund Policy", "Exchange Item", "Return Shipping"],
+      path: "Start a Return"
+    },
+    "Start a Return": {
+      message: "I'll help you start a return. Please provide your order number or email address so I can look up your purchase.",
+      options: ["Provide Order Number", "Use Email Lookup", "Item Not as Described", "Wrong Size/Color"],
+      path: "Provide Order Number"
+    },
+    "Provide Order Number": {
+      message: "I found your order! Which item would you like to return?\\n\\n1. Blue T-Shirt (Size M) - $24.99\\n2. Wireless Mouse - $39.99\\n3. Phone Stand - $19.99\\n\\nWhat's the reason for the return?",
+      options: ["Wrong Size", "Not as Described", "Defective Item", "Changed Mind", "Duplicate Order"],
+      path: "Wrong Size"
+    },
+    "Wrong Size": {
+      message: "No problem! I'll generate a prepaid return label for you. You can print it at home or drop it off at any UPS location. Would you like to exchange for a different size or get a refund?",
+      options: ["Exchange for Different Size", "Get Full Refund", "Store Credit", "Ask Another Question"],
+      path: "Exchange for Different Size"
+    },
+    "Technical Support": {
+      message: "I can help you with technical issues, setup guides, and troubleshooting. What type of support do you need?",
+      options: ["Product Setup", "Troubleshooting", "Warranty Claims", "Software Updates", "Compatibility"],
+      path: "Product Setup"
+    },
+    "Product Setup": {
+      message: "Which product do you need help setting up? I have step-by-step guides for all our devices.",
+      options: ["Wireless Headphones", "Smart Watch", "Bluetooth Speaker", "Phone Accessories", "Other Device"],
+      path: "Wireless Headphones"
+    },
+    "Wireless Headphones": {
+      message: "I'll guide you through pairing your wireless headphones:\\n\\n1. Turn on your headphones (hold power for 3 seconds)\\n2. Enable Bluetooth on your device\\n3. Select 'AudioMax Pro' from available devices\\n4. You'll hear 'Connected' when successful\\n\\nAre your headphones showing up in your Bluetooth settings?",
+      options: ["Yes, Connected!", "Not Showing Up", "Connection Fails", "Need Different Device"],
+      path: "Yes, Connected!"
+    },
+    "Yes, Connected!": {
+      message: "Excellent! Your headphones are now connected. Here are some tips:\\n\\n\u2713 Double-tap right ear for play/pause\\n\u2713 Hold left ear for voice assistant\\n\u2713 Battery lasts up to 8 hours\\n\u2713 Use the app for custom EQ settings\\n\\nEnjoy your music!",
+      function: () => {
+        trackDemoEvent('demo_setup_completed', { demo_type: 'ecommerce', value: 3 })
+        return "This would normally provide additional setup resources. Demo completed! \ud83c\udf89"
+      },
+      path: "demo_complete"
+    },
+    "Account Help": {
+      message: "I can help you with account-related questions, password resets, and profile updates. What do you need assistance with?",
+      options: ["Reset Password", "Update Profile", "Payment Methods", "Order History", "Account Settings"],
+      path: "Reset Password"
+    },
+    "Reset Password": {
+      message: "I'll help you reset your password. For security, I'll send a reset link to your registered email address. Please check your email and follow the instructions.",
+      options: ["Email Sent", "Different Email", "Not Receiving Email", "Ask Another Question"],
+      path: "Email Sent"
+    },
+    "Email Sent": {
+      message: "Perfect! I've sent a password reset link to your email. It should arrive within a few minutes. The link will be valid for 24 hours. After resetting, you'll be able to log in with your new password.",
+      function: () => {
+        trackDemoEvent('demo_password_reset', { demo_type: 'ecommerce', value: 2 })
+        return "This would normally handle the actual password reset process. Demo completed! \ud83c\udf89"
+      },
+      path: "demo_complete"
+    },
+    "Proceed to Checkout": {
+      message: "Great! I'll take you to checkout. Your cart contains:\\n\\n\u2022 iPhone 15 MagSafe Case - $49.99\\n\u2022 Subtotal: $49.99\\n\u2022 Shipping: FREE (orders over $25)\\n\u2022 Total: $49.99\\n\\nReady to complete your purchase?",
+      function: () => {
+        trackDemoEvent('demo_checkout_initiated', { demo_type: 'ecommerce', value: 5 })
+        return "This would normally redirect to the secure checkout page. Demo completed! \ud83c\udf89"
+      },
+      path: "demo_complete"
+    },
+    "Exchange for Different Size": {
+      message: "Perfect! What size would you like instead? I'll process the exchange and you'll receive the new item when we get your return.",
+      options: ["Size Small", "Size Large", "Size XL", "See Size Chart"],
+      path: "Size Large"
+    },
+    "Size Large": {
+      message: "Excellent! I've processed your exchange for Size Large. Here's what happens next:\\n\\n1. Print your return label\\n2. Send back the Size M item\\n3. We'll ship Size L when we receive your return\\n4. No additional charges\\n\\nYou'll get tracking for both shipments!",
+      function: () => {
+        trackDemoEvent('demo_exchange_processed', { demo_type: 'ecommerce', value: 4 })
+        return "This would normally generate return labels and process the exchange. Demo completed! \ud83c\udf89"
+      },
+      path: "demo_complete"
+    },
+    "Ask Another Question": {
+      message: "I'm here to help! What else can I assist you with today?",
+      options: ["Track My Order", "Product Questions", "Returns & Refunds", "Technical Support", "Account Help"],
+      path: "Track My Order"
+    },
+    "Start Over": {
+      message: "Of course! Let's start fresh. How can I help you with your shopping experience today?",
+      options: ["Track My Order", "Product Questions", "Returns & Refunds", "Technical Support", "Account Help"],
+      path: "Track My Order"
+    },
+    "demo_complete": {
+      message: "Thank you for trying our E\u2011Commerce AI Assistant demo! In a real implementation, you would now be connected to our order management system or customer service team.\\n\\nWould you like to try another scenario?",
+      options: ["Start Over", "Try Legal Demo", "Try Healthcare Demo"],
+      path: "Start Over"
+    }
+  }
+
   const getChatFlow = () => {
-    return demoType === 'legal' ? legalFlow : healthcareFlow
+    return demoType === 'legal' ? legalFlow : demoType === 'ecommerce' ? ecommerceFlow : healthcareFlow
   }
 
   const getChatSettings = () => {
     const baseSettings = {
       general: {
-        primaryColor: demoType === 'legal' ? "#1E40AF" : "#059669",
-        secondaryColor: demoType === 'legal' ? "#3B82F6" : "#10B981",
+        primaryColor: demoType === 'legal' ? "#1E40AF" : demoType === 'ecommerce' ? "#EA580C" : "#059669",
+        secondaryColor: demoType === 'legal' ? "#3B82F6" : demoType === 'ecommerce' ? "#FB923C" : "#10B981",
         embedded: true,
         showHeader: true,
         showFooter: true,
         showInputRow: true
       },
       header: {
-        title: demoType === 'legal' ? "Legal AI Assistant" : "Healthcare AI Assistant",
+        title: demoType === 'legal' ? "Legal AI Assistant" : demoType === 'ecommerce' ? "E‑Commerce AI Assistant" : "Healthcare AI Assistant",
         showAvatar: true,
         buttons: []
       },
       footer: {
-        text: `${demoType === 'legal' ? 'Legal' : 'Healthcare'} AI Demo - Not for actual legal/medical advice`
+        text: `${demoType === 'legal' ? 'Legal' : demoType === 'ecommerce' ? 'E‑Commerce' : 'Healthcare'} AI Demo - ${demoType === 'ecommerce' ? 'For demonstration purposes only' : 'Not for actual legal/medical advice'}`
       },
       chatHistory: {
         storageKey: `demo_${demoType}_chat`,
@@ -470,6 +621,8 @@ export default function DemoEmbed({
       headerStyle: {
         background: demoType === 'legal' 
           ? "linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%)"
+          : demoType === 'ecommerce'
+          ? "linear-gradient(135deg, #EA580C 0%, #FB923C 100%)"
           : "linear-gradient(135deg, #059669 0%, #10B981 100%)",
         color: "white",
         borderRadius: "12px 12px 0 0"
@@ -483,7 +636,7 @@ export default function DemoEmbed({
         border: "1px solid #e5e7eb"
       },
       userBubbleStyle: {
-        backgroundColor: demoType === 'legal' ? "#3B82F6" : "#10B981",
+        backgroundColor: demoType === 'legal' ? "#3B82F6" : demoType === 'ecommerce' ? "#EA580C" : "#10B981",
         color: "white"
       }
     }
@@ -525,7 +678,7 @@ export default function DemoEmbed({
               </motion.div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {/* Legal Demo */}
               <motion.button
                 initial={{ opacity: 0, x: -20 }}
@@ -544,6 +697,29 @@ export default function DemoEmbed({
                     <div className="flex items-center text-brand-blue font-medium">
                       <Play className="h-4 w-4 mr-2" />
                       Try Legal Demo
+                    </div>
+                  </div>
+                </div>
+              </motion.button>
+
+              {/* E-Commerce Demo */}
+              <motion.button
+                initial={{ opacity: 0, x: 0 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+                onClick={() => handleDemoStart('ecommerce')}
+                className="group p-6 rounded-xl border-2 border-gray-200 hover:border-orange-500 bg-white hover:bg-orange-50 transition-all duration-200 text-left"
+              >
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-200 transition-colors">
+                    <ShoppingCart className="h-6 w-6 text-orange-600" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">E‑Commerce Demo</h4>
+                    <p className="text-sm text-gray-600 mb-3">Discover automated customer support, order tracking, and sales optimization for online stores.</p>
+                    <div className="flex items-center text-orange-600 font-medium">
+                      <Play className="h-4 w-4 mr-2" />
+                      Try E‑Commerce Demo
                     </div>
                   </div>
                 </div>

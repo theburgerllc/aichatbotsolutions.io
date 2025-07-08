@@ -45,11 +45,11 @@ export default function HeroSection() {
             >
               <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight font-heading">
                 Custom AI Chatbots for
-                <span className="text-brand-blue"> Legal & Healthcare</span>
+                <span className="text-brand-blue"> Legal, E‑Commerce & Healthcare</span>
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">
-                Automate client intake, appointment scheduling, and patient communication 
-                with HIPAA-compliant, industry-specific chatbot solutions.
+                Automate customer support, client intake, and appointment scheduling 
+                with industry-specific, HIPAA-compliant chatbot solutions.
               </p>
             </motion.div>
 
@@ -63,6 +63,7 @@ export default function HeroSection() {
               {[
                 'HIPAA Compliant',
                 'Reduce No-Shows by 40%',
+                'Cart Abandonment Recovery',
                 'Automated Client Intake',
                 'Multi-Platform Deployment'
               ].map((benefit, index) => (

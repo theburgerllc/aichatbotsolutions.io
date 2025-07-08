@@ -29,10 +29,10 @@ export async function POST(request: NextRequest) {
     const { plan, industry, priceId, customerEmail, utm_source, utm_medium, utm_campaign } = await request.json()
 
     // Input validation
-    const validPlans = ['Legal Chatbot Suite', 'Healthcare Chatbot Suite']
+    const validPlans = ['Legal Chatbot Suite', 'Healthcare Chatbot Suite', 'E‑Commerce Chatbot Suite']
     if (!plan || !validPlans.includes(plan)) {
       return NextResponse.json(
-        { error: 'Invalid plan selected. Please choose Legal or Healthcare Chatbot Suite.' },
+        { error: 'Invalid plan selected. Please choose Legal, E‑Commerce, or Healthcare Chatbot Suite.' },
         { status: 400 }
       )
     }
@@ -45,12 +45,15 @@ export async function POST(request: NextRequest) {
       if (industry === 'legal') {
         finalPriceId = process.env.NEXT_PUBLIC_STRIPE_LEGAL_SUITE_PRICE_ID || process.env.NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID
         setupAmount = 1500 // $1,500 setup fee
+      } else if (industry === 'ecommerce') {
+        finalPriceId = process.env.NEXT_PUBLIC_STRIPE_ECOMMERCE_SUITE_PRICE_ID || process.env.NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID
+        setupAmount = 1700 // $1,700 setup fee
       } else if (industry === 'healthcare') {
         finalPriceId = process.env.NEXT_PUBLIC_STRIPE_HEALTHCARE_SUITE_PRICE_ID || process.env.NEXT_PUBLIC_STRIPE_KING_PLAN_PRICE_ID
         setupAmount = 1800 // $1,800 setup fee
       } else {
         return NextResponse.json(
-          { error: 'Invalid industry specified. Please select legal or healthcare.' },
+          { error: 'Invalid industry specified. Please select legal, e‑commerce, or healthcare.' },
           { status: 400 }
         )
       }
@@ -74,7 +77,9 @@ export async function POST(request: NextRequest) {
       partner_id: process.env.NEXT_PUBLIC_BOTPENGUIN_PARTNER_ID || '',
       redirect_type: 'botpenguin_signup',
       source: 'website',
-      service_type: industry === 'legal' ? 'Legal Chatbot Solution' : 'Healthcare Chatbot Solution',
+      service_type: industry === 'legal' ? 'Legal Chatbot Solution' : 
+                   industry === 'ecommerce' ? 'E‑Commerce Chatbot Solution' : 
+                   'Healthcare Chatbot Solution',
       created_at: new Date().toISOString(),
       ...(utm_source && { utm_source }),
       ...(utm_medium && { utm_medium }),
@@ -114,26 +119,34 @@ export async function POST(request: NextRequest) {
         metadata: {
           ...metadata,
           setup_fee: `$${setupAmount}`,
-          monthly_fee: industry === 'legal' ? '$200/month' : '$250/month',
+          monthly_fee: industry === 'legal' ? '$200/month' : 
+                      industry === 'ecommerce' ? '$225/month' : 
+                      '$250/month',
         },
       },
       
       // Custom fields for additional customer info
       custom_fields: [
         {
-          key: industry === 'legal' ? 'firm_name' : 'practice_name',
+          key: industry === 'legal' ? 'firm_name' : 
+               industry === 'ecommerce' ? 'store_name' : 
+               'practice_name',
           label: {
             type: 'text',
-            text: industry === 'legal' ? 'Law Firm Name' : 'Practice Name',
+            text: industry === 'legal' ? 'Law Firm Name' : 
+                  industry === 'ecommerce' ? 'Store/Business Name' : 
+                  'Practice Name',
           },
           type: 'text',
           optional: false,
         },
         {
-          key: 'practice_size',
+          key: industry === 'ecommerce' ? 'business_size' : 'practice_size',
           label: {
             type: 'text',
-            text: industry === 'legal' ? 'Firm Size' : 'Practice Size',
+            text: industry === 'legal' ? 'Firm Size' : 
+                  industry === 'ecommerce' ? 'Business Size' : 
+                  'Practice Size',
           },
           type: 'dropdown',
           dropdown: {
@@ -142,6 +155,11 @@ export async function POST(request: NextRequest) {
               { label: 'Small Firm (2-10 attorneys)', value: 'small' },
               { label: 'Medium Firm (11-50 attorneys)', value: 'medium' },
               { label: 'Large Firm (50+ attorneys)', value: 'large' },
+            ] : industry === 'ecommerce' ? [
+              { label: 'Solo Entrepreneur', value: 'solo' },
+              { label: 'Small Business (2-10 employees)', value: 'small' },
+              { label: 'Medium Business (11-50 employees)', value: 'medium' },
+              { label: 'Large Business (50+ employees)', value: 'large' },
             ] : [
               { label: 'Solo Practitioner', value: 'solo' },
               { label: 'Small Practice (2-10 providers)', value: 'small' },
@@ -155,7 +173,9 @@ export async function POST(request: NextRequest) {
           key: 'specialty',
           label: {
             type: 'text',
-            text: industry === 'legal' ? 'Practice Area' : 'Medical Specialty',
+            text: industry === 'legal' ? 'Practice Area' : 
+                  industry === 'ecommerce' ? 'Industry/Product Category' : 
+                  'Medical Specialty',
           },
           type: 'text',
           optional: true,
