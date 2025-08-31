@@ -6,12 +6,12 @@ const useEU = process.env.SENDGRID_EU === '1'
 
 // Configure base URL for EU residency if needed
 if (useEU) {
-  // @ts-expect-error runtime method
-  sgClient.setDefaultRequest('baseUrl', 'https://api.eu.sendgrid.com')
+  (sgClient as any).setDefaultRequest('baseUrl', 'https://api.eu.sendgrid.com')
 }
 sgClient.setApiKey(process.env.SENDGRID_API_KEY!)
-// @ts-expect-error setClient is available at runtime
-sgMail.setClient?.(sgClient)
+if (typeof (sgMail as any).setClient === 'function') {
+  (sgMail as any).setClient(sgClient)
+}
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
 
 export async function POST(req: Request) {
