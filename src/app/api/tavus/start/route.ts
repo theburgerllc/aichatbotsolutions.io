@@ -27,29 +27,31 @@ export async function POST(request: NextRequest) {
     } = body
 
     // Create conversation with Tavus API
+    const requestBody: any = {
+      persona_id: TAVUS_PERSONA_ID,
+    }
+
+    // Add replica_id only if provided
+    if (TAVUS_REPLICA_ID) {
+      requestBody.replica_id = TAVUS_REPLICA_ID
+    }
+
+    // Add optional fields
+    if (name || email || industry) {
+      requestBody.conversation_name = `Chat with ${name} - ${industry}`
+    }
+
+    if (context || industry || name) {
+      requestBody.conversational_context = context || `Industry: ${industry}. User: ${name}. Email: ${email}`
+    }
+
     const tavusResponse = await fetch('https://tavusapi.com/v2/conversations', {
       method: 'POST',
       headers: {
         'x-api-key': TAVUS_API_KEY,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        persona_id: TAVUS_PERSONA_ID,
-        replica_id: TAVUS_REPLICA_ID,
-        conversation_name: `Chat with ${name} - ${new Date().toISOString()}`,
-        conversational_context: context || `Industry: ${industry}. User: ${name}`,
-        // Optional: Add custom properties
-        properties: {
-          user_name: name,
-          user_email: email,
-          industry: industry,
-          source: 'website',
-          timestamp: new Date().toISOString(),
-        },
-        // Optional: Configure specific settings
-        enable_recording: true,
-        language: 'en',
-      }),
+      body: JSON.stringify(requestBody),
     })
 
     if (!tavusResponse.ok) {
