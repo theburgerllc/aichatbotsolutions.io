@@ -226,6 +226,13 @@ The website includes comprehensive tracking:
 
 4. **Test industry-specific forms** and data collection
 
+### Email (SendGrid)
+- Install: `npm i @sendgrid/mail @sendgrid/client`
+- Env: `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL` (verified sender or domain), optional `SENDGRID_EU=1` for EU-pinned subusers.
+- API route: `/api/contact` (server-only) sends mail via SendGrid.
+- **Security:** Use a restricted API key (Mail Send only). Keep keys server-side.
+- **EU Residency:** When `SENDGRID_EU=1`, the client uses `https://api.eu.sendgrid.com`.
+
 ### Contact Form Testing
 
 1. Test form validation and error handling
