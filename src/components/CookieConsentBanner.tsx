@@ -18,6 +18,7 @@ export default function CookieConsentBanner() {
       }, 2000)
       return () => clearTimeout(timer)
     }
+    return undefined
   }, [])
 
   const handleAccept = () => {

@@ -1,0 +1,9 @@
+
+> aichatbotsolutions.io@2.0.0 type-check
+> tsc --noEmit
+
+src/app/api/checkout-success/route.ts(5,3): error TS2322: Type '"2025-06-30.basil"' is not assignable to type '"2025-08-27.basil"'.
+src/app/api/create-checkout-session/route.ts(5,3): error TS2322: Type '"2025-06-30.basil"' is not assignable to type '"2025-08-27.basil"'.
+src/app/api/webhooks/stripe/route.ts(5,3): error TS2322: Type '"2025-06-30.basil"' is not assignable to type '"2025-08-27.basil"'.
+src/app/success/page.tsx(18,13): error TS7030: Not all code paths return a value.
+src/components/CookieConsentBanner.tsx(11,13): error TS7030: Not all code paths return a value.

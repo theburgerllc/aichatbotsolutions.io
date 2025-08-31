@@ -1,0 +1,25 @@
+
+> aichatbotsolutions.io@2.0.0 build
+> next build
+
+   ▲ Next.js 15.5.2
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 12.9s
+   Skipping linting
+   Checking validity of types ...
+Failed to compile.
+
+./src/app/success/page.tsx:18:13
+Type error: Not all code paths return a value.
+
+[0m [90m 16 |[39m   [36mconst[39m botpenguinUrl [33m=[39m process[33m.[39menv[33m.[39m[33mNEXT_PUBLIC_BOTPENGUIN_PARTNER_REDIRECT_URL[39m [33m||[39m [32m'https://app.botpenguin.com'[39m
+ [90m 17 |[39m
+[31m[1m>[22m[39m[90m 18 |[39m   useEffect(() [33m=>[39m {
+ [90m    |[39m             [31m[1m^[22m[39m
+ [90m 19 |[39m     [36mif[39m ([33m![39merror [33m&&[39m countdown [33m>[39m [35m0[39m) {
+ [90m 20 |[39m       [36mconst[39m timer [33m=[39m setTimeout(() [33m=>[39m setCountdown(countdown [33m-[39m [35m1[39m)[33m,[39m [35m1000[39m)
+ [90m 21 |[39m       [36mreturn[39m () [33m=>[39m clearTimeout(timer)[0m
+Next.js build worker exited with code: 1 and signal: null

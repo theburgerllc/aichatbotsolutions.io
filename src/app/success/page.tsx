@@ -23,6 +23,7 @@ function SuccessContent() {
       // Redirect to BotPenguin after countdown
       window.location.href = botpenguinUrl
     }
+    return undefined
   }, [countdown, error, botpenguinUrl])
 
   return (

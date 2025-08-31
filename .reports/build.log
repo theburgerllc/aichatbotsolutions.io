@@ -1,0 +1,125 @@
+
+> aichatbotsolutions.io@2.0.0 build
+> next build
+
+ ⚠ Invalid next.config.ts options detected: 
+ ⚠     Unrecognized key(s) in object: 'swcMinify'
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+ ⚠ `experimental.typedRoutes` has been moved to `typedRoutes`. Please update your next.config.ts file accordingly.
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+   ▲ Next.js 15.5.2
+   - Experiments (use with caution):
+     ✓ typedRoutes
+     · serverActions
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 13.6s
+   Linting and checking validity of types ...
+
+Failed to compile.
+
+./src/app/about/page.tsx
+40:60  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+40:69  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+128:48  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+161:15  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+161:82  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/app/api/checkout-success/route.ts
+41:83  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+77:88  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+117:48  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+125:5  Error: Unexpected console statement. Only these console methods are allowed: warn, error, info.  no-console
+129:7  Error: Unexpected console statement. Only these console methods are allowed: warn, error, info.  no-console
+
+./src/app/api/contact/route.ts
+51:5  Error: Unexpected console statement. Only these console methods are allowed: warn, error, info.  no-console
+158:5  Error: Unexpected console statement. Only these console methods are allowed: warn, error, info.  no-console
+
+./src/app/api/create-checkout-session/route.ts
+199:7  Error: Unexpected console statement. Only these console methods are allowed: warn, error, info.  no-console
+
+./src/app/api/webhooks/stripe/route.ts
+33:9  Error: Unexpected console statement. Only these console methods are allowed: warn, error, info.  no-console
+53:9  Error: Unexpected console statement. Only these console methods are allowed: warn, error, info.  no-console
+55:39  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+70:39  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+84:9  Error: Unexpected console statement. Only these console methods are allowed: warn, error, info.  no-console
+95:9  Error: Unexpected console statement. Only these console methods are allowed: warn, error, info.  no-console
+112:5  Error: Unexpected console statement. Only these console methods are allowed: warn, error, info.  no-console
+136:3  Error: Unexpected console statement. Only these console methods are allowed: warn, error, info.  no-console
+
+./src/app/contact/page.tsx
+103:85  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+125:51  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+295:22  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+298:30  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+298:182  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/app/privacy-policy/page.tsx
+17:37  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+17:41  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+17:43  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+17:48  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+17:53  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+17:56  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+22:76  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+145:79  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+156:62  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+156:75  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+177:25  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/app/success/page.tsx
+86:51  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/app/terms/page.tsx
+17:60  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+17:64  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+17:66  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+17:70  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+17:75  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+17:79  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+51:36  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+122:51  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+129:77  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+172:41  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+172:47  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+231:102  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/components/ChatBotifyWidget.tsx
+15:22  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+50:22  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+65:22  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+91:57  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+92:22  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+112:22  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+198:22  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+224:22  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/components/CookieConsentBanner.tsx
+110:21  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/components/DemoEmbed.tsx
+33:63  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+34:53  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+35:18  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/components/sections/HeroSection.tsx
+93:67  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+94:32  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+190:110  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/components/sections/InteractiveDemoSection.tsx
+37:53  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+38:18  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/components/sections/TestimonialsSlider.tsx
+138:25  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+138:47  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
