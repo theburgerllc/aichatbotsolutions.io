@@ -1,0 +1,148 @@
+name: Scheduled Tests & Monitoring
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  # E2E tests against production
+  production-e2e:
+    name: Production E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests against production
+        run: npx playwright test --project=chromium
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: https://aichatbotsolutions.io
+          CI: true
+        continue-on-error: true
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-e2e-results
+          path: playwright-report/
+          retention-days: 7
+
+  # Performance monitoring
+  performance-check:
+    name: Performance Monitoring
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Lighthouse on production
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            https://aichatbotsolutions.io
+            https://aichatbotsolutions.io/pricing
+            https://aichatbotsolutions.io/contact
+            https://aichatbotsolutions.io/industries
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          runs: 3
+
+      - name: Check performance thresholds
+        run: |
+          echo "Checking Lighthouse scores..."
+          # Add custom script to check scores and alert if below threshold
+
+  # Uptime monitoring
+  uptime-check:
+    name: Uptime & Health Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check website availability
+        run: |
+          response=$(curl -Is https://aichatbotsolutions.io | head -n 1)
+          echo "Response: $response"
+          if [[ $response == *"200"* ]] || [[ $response == *"301"* ]] || [[ $response == *"302"* ]]; then
+            echo "✅ Website is up and running"
+          else
+            echo "❌ Website might be down"
+            exit 1
+          fi
+
+      - name: Check API health
+        run: |
+          # Check contact API endpoint
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST https://aichatbotsolutions.io/api/contact \
+            -H "Content-Type: application/json" \
+            -d '{"test": true}')
+          
+          if [[ $response == "400" ]] || [[ $response == "200" ]]; then
+            echo "✅ API is responding correctly"
+          else
+            echo "❌ API returned unexpected status: $response"
+            exit 1
+          fi
+
+      - name: Check critical pages
+        run: |
+          pages=("/" "/pricing" "/contact" "/industries" "/about")
+          for page in "${pages[@]}"; do
+            response=$(curl -s -o /dev/null -w "%{http_code}" https://aichatbotsolutions.io$page)
+            if [[ $response == "200" ]]; then
+              echo "✅ Page $page is accessible"
+            else
+              echo "⚠️ Page $page returned status: $response"
+            fi
+          done
+
+  # Security scan
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run OWASP ZAP scan
+        uses: zaproxy/action-baseline@v0.9.0
+        with:
+          target: 'https://aichatbotsolutions.io'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a -j'
+        continue-on-error: true
+
+      - name: Upload ZAP results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-scan-results
+          path: |
+            zap_report.html
+            zap_report.md
+
+  # Notify on failures
+  notify:
+    name: Send Notifications
+    runs-on: ubuntu-latest
+    needs: [production-e2e, performance-check, uptime-check]
+    if: failure()
+    steps:
+      - name: Send alert
+        run: |
+          echo "⚠️ Scheduled tests detected issues with production environment"
+          echo "Check the workflow run for details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          # Add integration with Slack, Discord, or email notifications here
